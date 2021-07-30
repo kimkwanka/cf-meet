@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import mockData from './mock-data';
 /**
  *
  * @param {*} events:
@@ -14,4 +15,6 @@ const extractLocations = (events) => {
   return locations;
 };
 
-export { extractLocations };
+const getEvents = async () => mockData;
+
+export { extractLocations, getEvents };
