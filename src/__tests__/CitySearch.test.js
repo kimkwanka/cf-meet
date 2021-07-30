@@ -80,4 +80,18 @@ describe('<CitySearch /> component', () => {
     CitySearchWrapper.find('.city').simulate('change', finalEventObject);
     expect(CitySearchWrapper.find('.city').prop('value')).toBe('Berlin');
   });
+
+  test('selecting a suggestion should change query state', () => {
+    const query = 'Berlin';
+    const eventObject = {
+      target: {
+        value: query,
+      },
+    };
+    CitySearchWrapper.find('.city').simulate('change', eventObject);
+
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+    const firstSuggestion = CitySearchWrapper.find('.suggestions li').at(0).text();
+    expect(CitySearchWrapper.find('.city').prop('value')).toBe(firstSuggestion);
+  });
 });

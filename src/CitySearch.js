@@ -8,7 +8,12 @@ const CitySearch = ({ locations }) => {
     const suggestions = locations.filter(
       (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
     );
+    console.log(query, suggestions);
     setState({ ...state, query, suggestions });
+  };
+
+  const handleSuggestionClick = (suggestion) => () => {
+    setState({ ...state, query: suggestion });
   };
 
   return (
@@ -21,7 +26,12 @@ const CitySearch = ({ locations }) => {
       />
       <ul className="suggestions">
         {state.suggestions.map((suggestion) => (
-          <li key={suggestion}>{suggestion}</li>
+          <li
+            key={suggestion}
+            onClick={handleSuggestionClick(suggestion)}
+          >
+            {suggestion}
+          </li>
         ))}
         <li key="all">
           <b>See all cities</b>
