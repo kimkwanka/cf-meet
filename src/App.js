@@ -2,10 +2,12 @@ import React from 'react';
 import './App.css';
 
 import EventList from './EventList';
+import CitySearch from './CitySearch';
 
 const App = () => (
   <div className="App">
-    <EventList />
+    <EventList events={[]} />
+    <CitySearch />
   </div>
 );
 
