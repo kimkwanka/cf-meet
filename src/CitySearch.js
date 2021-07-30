@@ -8,7 +8,6 @@ const CitySearch = ({ locations }) => {
     const suggestions = locations.filter(
       (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
     );
-    console.log(query, suggestions);
     setState({ ...state, query, suggestions });
   };
 
