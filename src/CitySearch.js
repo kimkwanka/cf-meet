@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const CitySearch = () => (
-  <div className="city-search">
-    <input
-      type="text"
-      className="city"
-    />
-    <ul className="suggestions" />
-  </div>
-);
+const CitySearch = ({ locations }) => {
+  const [state, setState] = useState({ query: '', suggestions: [] });
+
+  const handleInputChange = (e) => {
+    const query = e.target.value;
+    const suggestions = locations.filter(
+      (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
+    );
+    setState({ ...state, query, suggestions });
+  };
+
+  return (
+    <div className="city-search">
+      <input
+        type="text"
+        className="city"
+        value={state.query}
+        onChange={handleInputChange}
+      />
+      <ul className="suggestions">
+        {state.suggestions.map((suggestion) => (
+          <li key={suggestion}>{suggestion}</li>
+        ))}
+        <li key="all">
+          <b>See all cities</b>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 export default CitySearch;

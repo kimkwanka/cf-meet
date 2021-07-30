@@ -1,20 +1,83 @@
 /* global describe, test, expect, beforeEach */
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import CitySearch from '../CitySearch';
+import { extractLocations } from '../api';
+import mockData from '../mock-data';
 
 describe('<CitySearch /> component', () => {
   let CitySearchWrapper = {};
+  let locations = [];
 
   beforeEach(() => {
-    CitySearchWrapper = shallow(<CitySearch />);
+    locations = extractLocations(mockData);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} />);
+  });
+
+  test('renders a list of suggestions', () => {
+    expect(CitySearchWrapper.find('.suggestions')).toHaveLength(1);
+  });
+
+  test('render list of suggestions correctly', () => {
+    const eventObject = {
+      target: {
+        value: '',
+      },
+    };
+    CitySearchWrapper.find('.city').simulate('change', eventObject);
+
+    const suggestions = locations;
+
+    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(suggestions.length + 1);
+    for (let i = 0; i < suggestions.length; i += 1) {
+      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(suggestions[i]);
+    }
+  });
+
+  test('suggestion list match the query when changed', () => {
+    const query = 'Berlin';
+    const eventObject = {
+      target: {
+        value: query,
+      },
+    };
+    CitySearchWrapper.find('.city').simulate('change', eventObject);
+
+    const filteredLocations = locations.filter(
+      (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
+    );
+    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(filteredLocations.length + 1);
+    for (let i = 0; i < filteredLocations.length; i += 1) {
+      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(filteredLocations[i]);
+    }
   });
 
   test('render text input', () => {
     expect(CitySearchWrapper.find('.city')).toHaveLength(1);
   });
 
-  test('renders a list of suggestions', () => {
-    expect(CitySearchWrapper.find('.suggestions')).toHaveLength(1);
+  test('renders text input correctly', () => {
+    const eventObject = {
+      target: {
+        value: 'Munich',
+      },
+    };
+
+    CitySearchWrapper.find('.city').simulate('change', eventObject);
+    expect(CitySearchWrapper.find('.city').prop('value')).toBe('Munich');
+  });
+
+  test('change state when text input changes', () => {
+    const initialEventObject = {
+      target: {
+        value: 'Munich',
+      },
+    };
+    CitySearchWrapper.find('.city').simulate('change', initialEventObject);
+
+    const finalEventObject = { target: { value: 'Berlin' } };
+    CitySearchWrapper.find('.city').simulate('change', finalEventObject);
+    expect(CitySearchWrapper.find('.city').prop('value')).toBe('Berlin');
   });
 });
