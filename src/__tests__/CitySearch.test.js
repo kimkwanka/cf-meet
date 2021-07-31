@@ -12,7 +12,7 @@ describe('<CitySearch /> component', () => {
 
   beforeEach(() => {
     locations = extractLocations(mockData);
-    CitySearchWrapper = shallow(<CitySearch locations={locations} />);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
   });
 
   test('renders a list of suggestions', () => {

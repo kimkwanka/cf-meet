@@ -16,7 +16,7 @@ const App = () => {
 
     getEvents().then((events) => {
       if (isMounted.current) {
-        setState({ events, locations: extractLocations(events) });
+        setState({ events: [], locations: extractLocations(events) });
       }
     });
 
@@ -25,11 +25,23 @@ const App = () => {
     };
   }, []);
 
+  const updateEvents = (location) => {
+    getEvents().then((events) => {
+      const locationEvents = (location === 'all')
+        ? events
+        : events.filter((event) => event.location === location);
+      setState({
+        ...state,
+        events: locationEvents,
+      });
+    });
+  };
+
   return (
     <div className="App">
-      <EventList events={state.events} />
-      <CitySearch locations={state.locations} />
+      <CitySearch locations={state.locations} updateEvents={updateEvents} />
       <NumberOfEvents />
+      <EventList events={state.events} />
     </div>
   );
 };

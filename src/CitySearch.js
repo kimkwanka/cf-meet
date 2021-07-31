@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CitySearch = ({ locations }) => {
+const CitySearch = ({ locations, updateEvents }) => {
   const [state, setState] = useState({ query: '', suggestions: [] });
 
   const handleInputChange = (e) => {
@@ -13,6 +13,7 @@ const CitySearch = ({ locations }) => {
 
   const handleSuggestionClick = (suggestion) => () => {
     setState({ ...state, query: suggestion });
+    updateEvents(suggestion);
   };
 
   return (
@@ -32,7 +33,7 @@ const CitySearch = ({ locations }) => {
             {suggestion}
           </li>
         ))}
-        <li key="all">
+        <li key="all" onClick={handleSuggestionClick('all')}>
           <b>See all cities</b>
         </li>
       </ul>
