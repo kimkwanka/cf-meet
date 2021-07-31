@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const NumberOfEvents = () => {
-  const [nEvents, setNEvents] = useState(32);
-
+const NumberOfEvents = ({ setEventCount, eventCount }) => {
   const handleInputChange = (e) => {
-    setNEvents(e.target.value);
+    setEventCount(e.target.value);
   };
 
   return (
-    <input className="number-of-events" value={nEvents} onChange={handleInputChange} />
+    <input className="number-of-events" defaultValue={eventCount} onChange={handleInputChange} />
   );
 };
 
