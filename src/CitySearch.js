@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
 const CitySearch = ({ locations, updateEvents }) => {
-  const [state, setState] = useState({ query: '', suggestions: [] });
+  const [state, setState] = useState({
+    query: '',
+    suggestions: [],
+    showSuggestions: false,
+  });
 
   const handleInputChange = (e) => {
     const query = e.target.value;
@@ -12,8 +16,12 @@ const CitySearch = ({ locations, updateEvents }) => {
   };
 
   const handleSuggestionClick = (suggestion) => () => {
-    setState({ ...state, query: suggestion });
+    setState({ ...state, query: suggestion, showSuggestions: false });
     updateEvents(suggestion);
+  };
+
+  const handleFocus = () => {
+    setState({ ...state, showSuggestions: true });
   };
 
   return (
@@ -23,8 +31,9 @@ const CitySearch = ({ locations, updateEvents }) => {
         className="city"
         value={state.query}
         onChange={handleInputChange}
+        onFocus={handleFocus}
       />
-      <ul className="suggestions">
+      <ul className="suggestions" style={state.showSuggestions ? {} : { display: 'none' }}>
         {state.suggestions.map((suggestion) => (
           <li
             key={suggestion}
