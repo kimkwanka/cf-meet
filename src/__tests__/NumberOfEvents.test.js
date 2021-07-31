@@ -9,7 +9,7 @@ describe('<NumberOfEvents /> component', () => {
 
   beforeEach(() => {
     NumberOfEventsWrapper = shallow(
-      <NumberOfEvents />,
+      <NumberOfEvents setEventCount={() => {}} eventCount={32} />,
     );
   });
 
@@ -18,16 +18,6 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('renders a text input field with a default value of 32', () => {
-    expect(NumberOfEventsWrapper.find('.number-of-events').prop('value')).toBe(32);
-  });
-
-  test('text input correctly reflects changes', () => {
-    const eventObject = {
-      target: {
-        value: 64,
-      },
-    };
-    NumberOfEventsWrapper.find('.number-of-events').simulate('change', eventObject);
-    expect(NumberOfEventsWrapper.find('.number-of-events').prop('value')).toBe(64);
+    expect(NumberOfEventsWrapper.find('.number-of-events').prop('defaultValue')).toBe(32);
   });
 });

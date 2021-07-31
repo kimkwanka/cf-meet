@@ -32,16 +32,30 @@ describe('<App /> component', () => {
 });
 
 describe('<App /> integration', () => {
-  test('App passes "events" state as a prop to EventList', async () => {
+  test('App passes eventCount state as a prop to NumberOfEvents', async () => {
     const AppWrapper = mount(<App />);
 
-    // From: https://stackoverflow.com/questions/59147444/trigger-useeffect-in-jest-testing
     await act(async () => {
       await new Promise(setImmediate);
     });
     AppWrapper.update();
 
-    expect(AppWrapper.find(EventList).props().events).toEqual([]);
+    expect(AppWrapper.find(NumberOfEvents).props().eventCount).toEqual(32);
+    AppWrapper.unmount();
+  });
+
+  test('App passes "events" state as a prop to EventList', async () => {
+    const AppWrapper = mount(<App />);
+    let allEvents = [];
+
+    // From: https://stackoverflow.com/questions/59147444/trigger-useeffect-in-jest-testing
+    await act(async () => {
+      allEvents = await getEvents();
+      allEvents = allEvents.slice(0, 32);
+    });
+    AppWrapper.update();
+
+    expect(AppWrapper.find(EventList).props().events).toEqual(allEvents);
     AppWrapper.unmount();
   });
 
@@ -111,10 +125,33 @@ describe('<App /> integration', () => {
       allEvents = await getEvents();
       const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
       await suggestionItems.at(0).simulate('click');
+      allEvents = allEvents.slice(0, 32);
     });
     AppWrapper.update();
 
     expect(AppWrapper.find(EventList).props().events).toEqual(allEvents);
+    AppWrapper.unmount();
+  });
+
+  test('the amount of events shown changes when the input text changes', async () => {
+    const AppWrapper = mount(<App />);
+
+    await act(async () => {
+      await new Promise(setImmediate);
+    });
+    AppWrapper.update();
+
+    expect(AppWrapper.find(EventList).props().events).toHaveLength(32);
+
+    const eventObject = {
+      target: {
+        value: 5,
+      },
+    };
+
+    AppWrapper.find(NumberOfEvents).simulate('change', eventObject);
+
+    expect(AppWrapper.find(EventList).props().events).toHaveLength(5);
     AppWrapper.unmount();
   });
 });
