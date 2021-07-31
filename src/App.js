@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import 'nprogress/nprogress.css';
 
 import EventList from './EventList';
 import CitySearch from './CitySearch';
