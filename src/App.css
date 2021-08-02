@@ -40,7 +40,7 @@ input[type="number"] {
   width: 250px;
 }
 
-.CitySearch {
+.city-search {
   display: flex;
   flex-direction: column;
   flex-basis: 300px;
