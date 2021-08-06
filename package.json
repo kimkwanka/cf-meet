@@ -61,6 +61,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.2.3",
-    "http-server": "^0.12.3"
+    "http-server": "^0.12.3",
+    "jest-cucumber": "^3.0.1"
   }
 }
