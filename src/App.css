@@ -47,6 +47,7 @@ input[type="number"] {
   max-width: 300px;
   margin: auto;
   position: relative;
+  padding-top: 70px;
 }
 
 .suggestions {
@@ -55,7 +56,7 @@ input[type="number"] {
   z-index: 2;
   align-self: center;
   margin: 0;
-  top: 43px;
+  top: 93px;
   font-size: 14px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
@@ -85,7 +86,7 @@ input[type="number"] {
   position: relative;
 }
 
-.details-btn {
+.event-details-button {
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -114,9 +115,14 @@ input[type="number"] {
   overflow-x: hidden;
 }
 
-.numberOfEvents {
-  width: 200px;
+.number-of-events {
+  position: relative;
   margin: 20px auto;
+  padding-top: 40px;
+}
+
+.number-of-events-input {
+  width: 200px;
   text-align: center;
 }
 
@@ -129,8 +135,11 @@ input[type="number"] {
 }
 
 .Alert {
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100%;
 }
 
 .data-vis-wrapper {

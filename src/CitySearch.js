@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
+import { InfoAlert } from './Alert';
+
 const CitySearch = ({ locations, updateEvents }) => {
   const [state, setState] = useState({
     query: '',
     suggestions: [],
     showSuggestions: false,
+    infoText: '',
   });
 
   const handleInputChange = (e) => {
@@ -12,11 +15,25 @@ const CitySearch = ({ locations, updateEvents }) => {
     const suggestions = locations.filter(
       (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
     );
-    setState({ ...state, query, suggestions });
+    const infoText = suggestions.length > 0
+      ? ''
+      : 'We cannot find the city you are looking for. Please try another city.';
+
+    setState({
+      ...state,
+      query,
+      suggestions,
+      infoText,
+    });
   };
 
   const handleSuggestionClick = (suggestion) => () => {
-    setState({ ...state, query: suggestion, showSuggestions: false });
+    setState({
+      ...state,
+      query: suggestion,
+      showSuggestions: false,
+      infoText: '',
+    });
     updateEvents(suggestion);
   };
 
@@ -26,6 +43,7 @@ const CitySearch = ({ locations, updateEvents }) => {
 
   return (
     <div className="city-search">
+      <InfoAlert text={state.infoText} />
       <input
         type="text"
         className="city"
@@ -33,12 +51,12 @@ const CitySearch = ({ locations, updateEvents }) => {
         onChange={handleInputChange}
         onFocus={handleFocus}
       />
-      <ul className="suggestions" style={state.showSuggestions ? {} : { display: 'none' }}>
+      <ul
+        className="suggestions"
+        style={state.showSuggestions ? {} : { display: 'none' }}
+      >
         {state.suggestions.map((suggestion) => (
-          <li
-            key={suggestion}
-            onClick={handleSuggestionClick(suggestion)}
-          >
+          <li key={suggestion} onClick={handleSuggestionClick(suggestion)}>
             {suggestion}
           </li>
         ))}
