@@ -9,7 +9,7 @@ const NumberOfEvents = ({ setEventCount, eventCount }) => {
 
   return (
     <div className="number-of-events">
-      {eventCount > 200 && <ErrorAlert text="Please enter a number between 1 and 200." />}
+      {(eventCount > 200 || eventCount < 0) && <ErrorAlert text="Please enter a number between 1 and 200." />}
       <input className="number-of-events-input" defaultValue={eventCount} onChange={handleInputChange} />
     </div>
   );
