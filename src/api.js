@@ -99,4 +99,6 @@ const getEvents = async () => {
   }
 };
 
-export { extractLocations, getEvents, getAccessToken };
+export {
+  extractLocations, getEvents, getAccessToken, checkToken,
+};
