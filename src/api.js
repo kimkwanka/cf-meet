@@ -74,6 +74,12 @@ const getEvents = async () => {
     return mockData;
   }
 
+  if (!navigator.onLine) {
+    const data = localStorage.getItem('lastEvents');
+    NProgress.done();
+    return data ? JSON.parse(data).events : [];
+  }
+
   const token = await getAccessToken();
 
   if (token) {
@@ -81,11 +87,13 @@ const getEvents = async () => {
     const url = `${API_GET_EVENTS_ENDPOINT}/${token}`;
     const result = await fetch(url);
     const data = await result.json();
+
     if (data) {
       const locations = extractLocations(data.events);
       localStorage.setItem('lastEvents', JSON.stringify(data));
       localStorage.setItem('locations', JSON.stringify(locations));
     }
+
     NProgress.done();
     return data.events;
   }
