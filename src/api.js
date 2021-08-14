@@ -67,6 +67,7 @@ const removeQuery = () => {
 };
 
 const getEvents = async () => {
+  console.log('GET EVENTS')
   NProgress.start();
 
   if (window.location.href.startsWith('http://localhost')) {
@@ -75,11 +76,13 @@ const getEvents = async () => {
   }
 
   if (!navigator.onLine) {
+    console.log('offline');
     const data = localStorage.getItem('lastEvents');
     NProgress.done();
+    console.log('data:', data);
     return data ? JSON.parse(data).events : [];
   }
-
+  console.log('ONLINE')
   const token = await getAccessToken();
 
   if (token) {
