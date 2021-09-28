@@ -20,8 +20,8 @@ jobs:
         npm install
         npm run-script build
       env:
-        REACT_APP_API_TOKEN_ENDPOINT: ${{ secrets.REACT_APP_APIKey }}
-        REACT_APP_API_GET_EVENTS_ENDPOINT: ${{ secrets.REACT_APP_APISecret }}
+        REACT_APP_API_TOKEN_ENDPOINT: ${{ secrets.REACT_APP_API_TOKEN_ENDPOINT }}
+        REACT_APP_API_GET_EVENTS_ENDPOINT: ${{ secrets.REACT_APP_API_GET_EVENTS_ENDPOINT }}
         REACT_APP_API_GET_AUTH_URL_ENDPOINT: ${{ secrets.REACT_APP_API_GET_AUTH_URL_ENDPOINT }}
 
     - name: Deploy
