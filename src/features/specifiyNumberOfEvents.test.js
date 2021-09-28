@@ -43,7 +43,7 @@ defineFeature(feature, (test) => {
     });
 
     when('the user changes number of events shown', () => {
-      AppWrapper.find('.number-of-events').simulate('change', {
+      AppWrapper.find('.number-of-events-input').simulate('change', {
         target: { value: 5 },
       });
     });

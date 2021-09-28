@@ -158,7 +158,7 @@ describe('<App /> integration', () => {
       },
     };
 
-    AppWrapper.find(NumberOfEvents).simulate('change', eventObject);
+    AppWrapper.find('.number-of-events-input').simulate('change', eventObject);
 
     expect(AppWrapper.find(EventList).props().events).toHaveLength(5);
     AppWrapper.unmount();
