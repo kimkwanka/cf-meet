@@ -6,7 +6,7 @@ import { ErrorAlert } from './Alert';
 
 const NumberOfEvents = ({ setEventCount, eventCount }) => {
   const handleInputChange = (e) => {
-    setEventCount(e.target.value);
+    setEventCount(parseInt(e.target.value, 10));
   };
 
   return (
@@ -16,7 +16,7 @@ const NumberOfEvents = ({ setEventCount, eventCount }) => {
       )}
       <input
         className="number-of-events-input"
-        defaultValue={eventCount}
+        defaultValue={parseInt(eventCount, 10)}
         onChange={handleInputChange}
       />
     </div>
