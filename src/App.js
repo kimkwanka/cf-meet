@@ -12,53 +12,50 @@ import {
 } from './api';
 
 const App = () => {
-  const [state, setState] = useState({
-    events: [],
-    locations: [],
-    eventCount: 32,
-    showWelcomeScreen: false,
-  });
+  const [events, setEvents] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [eventCount, setEventCount] = useState(32);
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(false);
 
-  useEffect(async () => {
-    const accessToken = localStorage.getItem('access_token');
-    const isTokenValid = !(await checkToken(accessToken)).error;
-    const searchParams = new URLSearchParams(window.location.search);
+  useEffect(() => {
+    const doAsyncStuff = async () => {
+      const accessToken = localStorage.getItem('access_token');
+      const isTokenValid = !(await checkToken(accessToken)).error;
+      const searchParams = new URLSearchParams(window.location.search);
 
-    const code = searchParams.get('code');
-    setState({ ...state, showWelcomeScreen: !(code || isTokenValid) });
-    if (code || isTokenValid) {
-      const events = await getEvents();
-      setState({ ...state, events, locations: extractLocations(events) });
-    }
+      const code = searchParams.get('code');
+
+      setShowWelcomeScreen(!(code || isTokenValid));
+
+      if (code || isTokenValid) {
+        const fetchedEvents = await getEvents();
+        setEvents(fetchedEvents);
+        setLocations(extractLocations(fetchedEvents));
+      }
+    };
+    doAsyncStuff();
   }, []);
 
-  const setEventCount = (n) => {
-    setState({ ...state, eventCount: n });
-  };
-
   const updateEvents = async (location) => {
-    const events = await getEvents();
+    const fetchedEvents = await getEvents();
     const locationEvents = location === 'all'
-      ? events
-      : events.filter((event) => event.location === location);
+      ? fetchedEvents
+      : fetchedEvents.filter((event) => event.location === location);
 
-    setState({
-      ...state,
-      events: locationEvents,
-    });
+    setEvents(locationEvents);
   };
 
-  const currentEvents = state.events.slice(0, state.eventCount);
+  const currentEvents = events.slice(0, eventCount);
 
   return (
     <div className="App">
-      <CitySearch locations={state.locations} updateEvents={updateEvents} />
+      <CitySearch locations={locations} updateEvents={updateEvents} />
       <NumberOfEvents
         setEventCount={setEventCount}
-        eventCount={state.eventCount}
+        eventCount={eventCount}
       />
       <EventList events={currentEvents} />
-      {state.showWelcomeScreen && (
+      {showWelcomeScreen && (
         <WelcomeScreen getAccessToken={getAccessToken} />
       )}
     </div>
