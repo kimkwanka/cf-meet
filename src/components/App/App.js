@@ -12,12 +12,13 @@ import EventsScatterPlot from './EventsScatterPlot/EventsScatterPlot';
 import EventGenre from './EventGenre/EventGenre';
 
 import {
-  extractLocations, getEvents, getAccessToken, checkToken,
+  extractLocations,
+  getEvents,
+  getAccessToken,
+  checkToken,
 } from '../../services/api';
 
-const isTestEnvironment = true
-  || process.env.NODE_ENV === 'test'
-  || navigator.userAgent === 'puppeteer';
+const isTestEnvironment = process.env.NODE_ENV === 'test' || navigator.userAgent === 'puppeteer';
 
 const App = () => {
   const [events, setEvents] = useState([]);
