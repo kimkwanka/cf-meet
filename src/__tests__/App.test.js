@@ -4,12 +4,12 @@ import { shallow, mount } from 'enzyme';
 
 import { act } from 'react-dom/test-utils';
 
-import App from '../App';
-import EventList from '../EventList';
-import CitySearch from '../CitySearch';
-import NumberOfEvents from '../NumberOfEvents';
+import App from '../components/App/App';
+import EventList from '../components/App/EventList/EventList';
+import CitySearch from '../components/App/CitySearch/CitySearch';
+import NumberOfEvents from '../components/App/NumberOfEvents/NumberOfEvents';
 
-import { extractLocations, getEvents } from '../api';
+import { extractLocations, getEvents } from '../services/api';
 
 describe('<App /> component', () => {
   let AppWrapper = {};

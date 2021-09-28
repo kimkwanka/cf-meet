@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import 'nprogress/nprogress.css';
 
-import EventList from './EventList';
-import CitySearch from './CitySearch';
-import NumberOfEvents from './NumberOfEvents';
-import WelcomeScreen from './WelcomeScreen';
+import EventList from './EventList/EventList';
+import CitySearch from './CitySearch/CitySearch';
+import NumberOfEvents from './NumberOfEvents/NumberOfEvents';
+import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 
-import EventsScatterPlot from './EventsScatterPlot';
-import EventGenre from './EventGenre';
+import EventsScatterPlot from './EventsScatterPlot/EventsScatterPlot';
+import EventGenre from './EventGenre/EventGenre';
 
 import {
   extractLocations, getEvents, getAccessToken, checkToken,
-} from './api';
+} from '../../services/api';
 
 const isTestEnvironment = true
   || process.env.NODE_ENV === 'test'

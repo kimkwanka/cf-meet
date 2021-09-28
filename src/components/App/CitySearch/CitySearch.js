@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { InfoAlert } from './Alert';
+import { InfoAlert } from '../../Alert/Alert';
 
 const CitySearch = ({ locations, updateEvents }) => {
   const [state, setState] = useState({

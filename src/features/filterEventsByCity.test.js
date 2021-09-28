@@ -6,12 +6,12 @@ import { mount, shallow } from 'enzyme';
 
 import { act } from 'react-dom/test-utils';
 
-import App from '../App';
-import CitySearch from '../CitySearch';
+import App from '../components/App/App';
+import CitySearch from '../components/App/CitySearch/CitySearch';
 
-import mockData from '../mock-data';
+import mockData from '../services/mock-data';
 
-import { extractLocations } from '../api';
+import { extractLocations } from '../services/api';
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 

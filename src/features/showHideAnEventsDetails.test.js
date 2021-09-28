@@ -4,9 +4,9 @@ import { loadFeature, defineFeature } from 'jest-cucumber';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Event from '../Event';
+import Event from '../components/App/EventList/Event/Event';
 
-import mockData from '../mock-data';
+import mockData from '../services/mock-data';
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 

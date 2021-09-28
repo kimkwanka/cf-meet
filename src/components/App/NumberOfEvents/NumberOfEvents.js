@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { ErrorAlert } from './Alert';
+import { ErrorAlert } from '../../Alert/Alert';
 
 const NumberOfEvents = ({ setEventCount, eventCount }) => {
   const handleInputChange = (e) => {

@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 
 import { act } from 'react-dom/test-utils';
 
-import App from '../App';
+import App from '../components/App/App';
 
 const feature = loadFeature('./src/features/specifyNumberOfEvents.feature');
 

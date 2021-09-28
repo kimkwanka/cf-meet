@@ -2,9 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Event from './Event';
+import Event from './Event/Event';
 
-import { WarningAlert } from './Alert';
+import { WarningAlert } from '../../Alert/Alert';
 
 const EventList = ({ events }) => (
   <ul className="event-list">
