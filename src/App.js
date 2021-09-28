@@ -70,7 +70,7 @@ const App = () => {
 
     return data;
   };
-  console.log(currentEvents)
+
   return (
     <div className="App">
       <CitySearch locations={locations} updateEvents={updateEvents} />
@@ -81,7 +81,7 @@ const App = () => {
         <EventsScatterPlot data={getScatterPlotData()} />
         <EventGenre events={currentEvents} />
       </div>
-      {/* <EventList events={currentEvents} /> */}
+      <EventList events={currentEvents} />
       {showWelcomeScreen && <WelcomeScreen getAccessToken={getAccessToken} />}
     </div>
   );
