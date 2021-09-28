@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable import/prefer-default-export */
 import NProgress from 'nprogress';
 import mockData from './mock-data';
@@ -14,13 +15,13 @@ const extractLocations = (events) => {
 
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
-  const { access_token } = await fetch(
-    `${API_TOKEN_ENDPOINT}/${encodeCode}`,
-  )
+  const { access_token } = await fetch(`${API_TOKEN_ENDPOINT}/${encodeCode}`)
     .then((res) => res.json())
     .catch((error) => error);
 
-  access_token && localStorage.setItem('access_token', access_token);
+  if (access_token) {
+    localStorage.setItem('access_token', access_token);
+  }
 
   return access_token;
 };
@@ -47,7 +48,9 @@ const getAccessToken = async () => {
     if (!code) {
       const results = await fetch(API_GET_AUTH_URL_ENDPOINT);
       const { authUrl } = await results.json();
-      return (window.location.href = authUrl);
+      window.location.href = authUrl;
+
+      return '';
     }
     return code && getToken(code);
   }
@@ -97,6 +100,7 @@ const getEvents = async () => {
     NProgress.done();
     return data.events;
   }
+  return [];
 };
 
 export {

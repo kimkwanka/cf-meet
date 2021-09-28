@@ -18,7 +18,9 @@ describe('<Event /> component', () => {
 
     expect(EventWrapper.find('.event-title').text()).toBe(event.summary);
     expect(EventWrapper.find('.event-start').text()).toBe(event.start.dateTime);
-    expect(EventWrapper.find('.event-location').text()).toBe(`@${event.summary} | ${event.location}`);
+    expect(EventWrapper.find('.event-location').text()).toBe(
+      `@${event.summary} | ${event.location}`,
+    );
     expect(EventWrapper.find('.event-details').length).toBe(0);
   });
 
@@ -32,6 +34,8 @@ describe('<Event /> component', () => {
     expect(EventWrapper.find('.event-details').length).toBe(1);
 
     expect(EventWrapper.find('.event-link').prop('href')).toBe(event.htmlLink);
-    expect(EventWrapper.find('.event-description').text()).toBe(event.description);
+    expect(EventWrapper.find('.event-description').text()).toBe(
+      event.description,
+    );
   });
 });

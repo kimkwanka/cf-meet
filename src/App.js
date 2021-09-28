@@ -26,7 +26,7 @@ const App = () => {
 
     const code = searchParams.get('code');
     setState({ ...state, showWelcomeScreen: !(code || isTokenValid) });
-    if ((code || isTokenValid)) {
+    if (code || isTokenValid) {
       const events = await getEvents();
       setState({ ...state, events, locations: extractLocations(events) });
     }
@@ -58,7 +58,9 @@ const App = () => {
         eventCount={state.eventCount}
       />
       <EventList events={currentEvents} />
-      {state.showWelcomeScreen && <WelcomeScreen getAccessToken={getAccessToken} />}
+      {state.showWelcomeScreen && (
+        <WelcomeScreen getAccessToken={getAccessToken} />
+      )}
     </div>
   );
 };

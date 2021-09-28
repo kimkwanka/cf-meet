@@ -1,4 +1,8 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
 
 import { InfoAlert } from './Alert';
 
@@ -66,6 +70,11 @@ const CitySearch = ({ locations, updateEvents }) => {
       </ul>
     </div>
   );
+};
+
+CitySearch.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateEvents: PropTypes.func.isRequired,
 };
 
 export default CitySearch;

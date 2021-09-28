@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Event = ({ event }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -14,7 +15,9 @@ const Event = ({ event }) => {
       {showDetails && (
         <div className="event-details">
           <h3>About the event:</h3>
-          <a className="event-link" href={event.htmlLink}>See details on Google Calendar</a>
+          <a className="event-link" href={event.htmlLink}>
+            See details on Google Calendar
+          </a>
           <p className="event-description">{event.description}</p>
         </div>
       )}
@@ -27,6 +30,18 @@ const Event = ({ event }) => {
       </button>
     </div>
   );
+};
+
+Event.propTypes = {
+  event: PropTypes.shape({
+    summary: PropTypes.string.isRequired,
+    start: PropTypes.shape({
+      dateTime: PropTypes.string.isRequired,
+    }).isRequired,
+    location: PropTypes.string.isRequired,
+    htmlLink: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Event;

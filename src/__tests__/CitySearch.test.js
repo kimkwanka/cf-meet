@@ -12,7 +12,9 @@ describe('<CitySearch /> component', () => {
 
   beforeEach(() => {
     locations = extractLocations(mockData);
-    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
+    CitySearchWrapper = shallow(
+      <CitySearch locations={locations} updateEvents={() => {}} />,
+    );
   });
 
   test('renders a list of suggestions', () => {
@@ -29,9 +31,13 @@ describe('<CitySearch /> component', () => {
 
     const suggestions = locations;
 
-    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(suggestions.length + 1);
+    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(
+      suggestions.length + 1,
+    );
     for (let i = 0; i < suggestions.length; i += 1) {
-      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(suggestions[i]);
+      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(
+        suggestions[i],
+      );
     }
   });
 
@@ -47,9 +53,13 @@ describe('<CitySearch /> component', () => {
     const filteredLocations = locations.filter(
       (location) => location.toUpperCase().indexOf(query.toUpperCase()) !== -1,
     );
-    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(filteredLocations.length + 1);
+    expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(
+      filteredLocations.length + 1,
+    );
     for (let i = 0; i < filteredLocations.length; i += 1) {
-      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(filteredLocations[i]);
+      expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(
+        filteredLocations[i],
+      );
     }
   });
 
@@ -91,13 +101,17 @@ describe('<CitySearch /> component', () => {
     CitySearchWrapper.find('.city').simulate('change', eventObject);
 
     CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
-    const firstSuggestion = CitySearchWrapper.find('.suggestions li').at(0).text();
+    const firstSuggestion = CitySearchWrapper.find('.suggestions li')
+      .at(0)
+      .text();
     expect(CitySearchWrapper.find('.city').prop('value')).toBe(firstSuggestion);
   });
 
   test('selecting CitySearch input reveals the suggestions list', () => {
     CitySearchWrapper.find('.city').simulate('focus');
-    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({ display: 'none' });
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({
+      display: 'none',
+    });
   });
 
   test('selecting a suggestion should hide the suggestions list', () => {
@@ -109,6 +123,8 @@ describe('<CitySearch /> component', () => {
     };
     CitySearchWrapper.find('.city').simulate('change', eventObject);
     CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
-    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({ display: 'none' });
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({
+      display: 'none',
+    });
   });
 });

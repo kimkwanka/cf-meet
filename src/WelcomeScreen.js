@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 const WelcomeScreen = ({ getAccessToken }) => (
   <div className="WelcomeScreen">
     <h1>Welcome to the Meet app</h1>
@@ -36,4 +38,9 @@ o.svg"
     </a>
   </div>
 );
+
+WelcomeScreen.propTypes = {
+  getAccessToken: PropTypes.func.isRequired,
+};
+
 export default WelcomeScreen;

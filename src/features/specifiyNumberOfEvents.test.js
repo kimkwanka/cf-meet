@@ -21,16 +21,18 @@ defineFeature(feature, (test) => {
       AppWrapper.update();
     });
 
-    when('the user has not changed the number of events shown', () => {
-
-    });
+    when('the user has not changed the number of events shown', () => {});
 
     then('the number of event items visible in the list is 32', () => {
       expect(AppWrapper.find('.event-list li').length).toBe(32);
     });
   });
 
-  test('User can change the number of events visible', ({ given, when, then }) => {
+  test('User can change the number of events visible', ({
+    given,
+    when,
+    then,
+  }) => {
     let AppWrapper = {};
 
     given('the list of events has been loaded', async () => {
@@ -41,11 +43,16 @@ defineFeature(feature, (test) => {
     });
 
     when('the user changes number of events shown', () => {
-      AppWrapper.find('.number-of-events').simulate('change', { target: { value: 5 } });
+      AppWrapper.find('.number-of-events').simulate('change', {
+        target: { value: 5 },
+      });
     });
 
-    then('the number of event items visible changes according to the user\'s input', () => {
-      expect(AppWrapper.find('.event-list li').length).toBe(5);
-    });
+    then(
+      "the number of event items visible changes according to the user's input",
+      () => {
+        expect(AppWrapper.find('.event-list li').length).toBe(5);
+      },
+    );
   });
 });

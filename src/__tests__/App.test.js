@@ -94,23 +94,32 @@ describe('<App /> integration', () => {
     expect(AppWrapper.find(CitySearch).props().locations).toEqual(locations);
 
     await act(async () => {
-      await AppWrapper.find(CitySearch).find('.city').simulate('change', { target: { value: '' } });
+      await AppWrapper.find(CitySearch)
+        .find('.city')
+        .simulate('change', { target: { value: '' } });
     });
     AppWrapper.update();
 
     const suggestions = AppWrapper.find(CitySearch).find('.suggestions li');
 
-    const selectedIndex = Math.floor(Math.random() * (suggestions.length));
-    const selectedCity = AppWrapper.find(CitySearch).find('.suggestions li').at(selectedIndex).text();
+    const selectedIndex = Math.floor(Math.random() * suggestions.length);
+    const selectedCity = AppWrapper.find(CitySearch)
+      .find('.suggestions li')
+      .at(selectedIndex)
+      .text();
 
-    const selectedSuggestion = AppWrapper.find(CitySearch).find('.suggestions li').at(selectedIndex);
+    const selectedSuggestion = AppWrapper.find(CitySearch)
+      .find('.suggestions li')
+      .at(selectedIndex);
 
     await act(async () => {
-      await selectedSuggestion.simulate('click', { });
+      await selectedSuggestion.simulate('click', {});
     });
     AppWrapper.update();
 
-    const eventsToShow = allEvents.filter((event) => event.location === selectedCity);
+    const eventsToShow = allEvents.filter(
+      (event) => event.location === selectedCity,
+    );
 
     expect(AppWrapper.find(EventList).props().events).toEqual(eventsToShow);
     AppWrapper.unmount();

@@ -1,4 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import React, { Component } from 'react';
+
+import PropTypes from 'prop-types';
 
 class Alert extends Component {
   constructor(props) {
@@ -13,9 +16,10 @@ class Alert extends Component {
   }
 
   render() {
+    const { text } = this.props;
     return (
       <div className="Alert">
-        <p style={this.getStyle()}>{this.props.text}</p>
+        <p style={this.getStyle()}>{text}</p>
       </div>
     );
   }
@@ -42,4 +46,8 @@ class ErrorAlert extends Alert {
   }
 }
 
-export { InfoAlert, WarningAlert, ErrorAlert};
+Alert.propTypes = {
+  text: PropTypes.string.isRequired,
+};
+
+export { InfoAlert, WarningAlert, ErrorAlert };

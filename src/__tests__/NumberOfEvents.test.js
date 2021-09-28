@@ -18,6 +18,8 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('renders a text input field with a default value of 32', () => {
-    expect(NumberOfEventsWrapper.find('.number-of-events').prop('defaultValue')).toBe(32);
+    expect(
+      NumberOfEventsWrapper.find('.number-of-events').prop('defaultValue'),
+    ).toBe(32);
   });
 });
