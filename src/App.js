@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import './App.css';
 import 'nprogress/nprogress.css';
 
@@ -7,11 +8,16 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import WelcomeScreen from './WelcomeScreen';
 
+import EventsScatterPlot from './EventsScatterPlot';
+import EventGenre from './EventGenre';
+
 import {
   extractLocations, getEvents, getAccessToken, checkToken,
 } from './api';
 
-const isTestEnvironment = process.env.NODE_ENV === 'test' || navigator.userAgent === 'puppeteer';
+const isTestEnvironment = true
+  || process.env.NODE_ENV === 'test'
+  || navigator.userAgent === 'puppeteer';
 
 const App = () => {
   const [events, setEvents] = useState([]);
@@ -53,17 +59,30 @@ const App = () => {
 
   const currentEvents = events.slice(0, eventCount);
 
+  const getScatterPlotData = () => {
+    const data = locations.map((location) => {
+      const number = currentEvents.filter(
+        (event) => event.location === location,
+      ).length;
+      const city = location.split(', ').shift();
+      return { city, number };
+    });
+
+    return data;
+  };
+  console.log(currentEvents)
   return (
     <div className="App">
       <CitySearch locations={locations} updateEvents={updateEvents} />
-      <NumberOfEvents
-        setEventCount={setEventCount}
-        eventCount={eventCount}
-      />
-      <EventList events={currentEvents} />
-      {showWelcomeScreen && (
-        <WelcomeScreen getAccessToken={getAccessToken} />
-      )}
+      <NumberOfEvents setEventCount={setEventCount} eventCount={eventCount} />
+      <h4>Events in each city</h4>
+
+      <div className="data-vis-wrapper">
+        <EventsScatterPlot data={getScatterPlotData()} />
+        <EventGenre events={currentEvents} />
+      </div>
+      {/* <EventList events={currentEvents} /> */}
+      {showWelcomeScreen && <WelcomeScreen getAccessToken={getAccessToken} />}
     </div>
   );
 };
