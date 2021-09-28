@@ -3,9 +3,11 @@
 import NProgress from 'nprogress';
 import mockData from './mock-data';
 
-const API_TOKEN_ENDPOINT = 'https://618uksm4h4.execute-api.eu-central-1.amazonaws.com/dev/api/token';
-const API_GET_EVENTS_ENDPOINT = 'https://618uksm4h4.execute-api.eu-central-1.amazonaws.com/dev/api/get-events';
-const API_GET_AUTH_URL_ENDPOINT = 'https://618uksm4h4.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url';
+const {
+  REACT_APP_API_TOKEN_ENDPOINT: API_TOKEN_ENDPOINT,
+  REACT_APP_API_GET_EVENTS_ENDPOINT: API_GET_EVENTS_ENDPOINT,
+  REACT_APP_API_GET_AUTH_URL_ENDPOINT: API_GET_AUTH_URL_ENDPOINT,
+} = process.env;
 
 const extractLocations = (events) => {
   const extractedLocations = events.map((event) => event.location);
